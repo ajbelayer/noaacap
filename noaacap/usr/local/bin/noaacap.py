@@ -20,10 +20,12 @@ import os.path
 import configparser
 import re
 import logging
-from systemd.journal import JournalHandler
-
 log = logging.getLogger('noaacap')
-log.addHandler(JournalHandler(SYSLOG_IDENTIFIER='noaacap'))
+
+if sys.platform == "linux" :
+    from systemd.journal import JournalHandler
+    log.addHandler(JournalHandler(SYSLOG_IDENTIFIER='noaacap'))
+
 
 if len(sys.argv) == 2 and sys.argv[1] == '-v':
    print("noaacap.py by K2IE, version " + version + "\n")
